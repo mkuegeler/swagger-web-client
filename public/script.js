@@ -33,7 +33,12 @@ new Vue({
                 }).catch(error => {
                     this.response = 'Error: ' + error.response.status;
                 });
-            this.name = '';
+            this.name = ''; 
         }
     }
 });
+
+// Reset
+function ResetForm() {
+    document.getElementById("PrimaryForm").reset();
+}
