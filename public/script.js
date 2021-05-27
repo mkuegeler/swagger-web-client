@@ -1,6 +1,7 @@
-const endpoint = 'https://virtserver.swaggerhub.com/5deen/SVG-API/1.0.0/';
+import { endpointUrl, htmlElement } from './dist/app.js';
 
 let records = [];
+const endpoint = endpointUrl();
 
 new Vue({
     el: '#app',
@@ -25,7 +26,8 @@ new Vue({
             axios.get(endpoint + this.name, {
             }).
                 then(response => {
-                    this.success = 'JSON Data returned';
+                    // this.success = 'JSON Data returned';
+                    this.success = htmlElement("JSON Data:");
                     this.response = JSON.stringify(response.data, null, 2);
                     for (const [key, value] of Object.entries(response.data)) {
                         records.push({ Attribute: `${key}`, Value: `${value}` });

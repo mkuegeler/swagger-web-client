@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "start": "node server",
-    "all": "webpack && node server"
+    "all": "webpack && node server",
+    "nopack": "tsc && node server"
   },
   "repository": {
     "type": "git",
