@@ -59,7 +59,13 @@
             </tr>
           </tbody>
         </table>
-        <div><canvas id="renderCanvas"></canvas></div>
+        <div><h4>SVG Source</h4>
+          <pre id="svgCode">{{code}}</pre></div>
+          <div>
+            <h4>SVG Preview</h4>
+            <div id="svgCanvas" v-html="svg"></div>
+          </div>
+        
       </div>
       <!-- ----------------- Main Content End -------------------------------------- -->
       </p>

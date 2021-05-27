@@ -1,4 +1,4 @@
-import { endpointUrl, htmlElement } from './dist/app.js';
+import { endpointUrl, Element } from './dist/app.js';
 
 let records = [];
 const endpoint = endpointUrl();
@@ -10,6 +10,9 @@ new Vue({
             name: '',
             response: '',
             success: '',
+            svg: '',
+            code: '',
+            el: '',
             rows: records
         };
     },
@@ -23,11 +26,15 @@ new Vue({
     },
     methods: {
         submitForm() {
+            this.el = this.name;
             axios.get(endpoint + this.name, {
             }).
                 then(response => {
-                    // this.success = 'JSON Data returned';
-                    this.success = htmlElement("JSON Data:");
+                    this.success = 'JSON Data returned';
+                    
+                    var svgEl = new Element(this.el, response.data);
+                    this.svg = svgEl.el;
+                    this.code = svgEl.el;
                     this.response = JSON.stringify(response.data, null, 2);
                     for (const [key, value] of Object.entries(response.data)) {
                         records.push({ Attribute: `${key}`, Value: `${value}` });
