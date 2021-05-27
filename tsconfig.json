@@ -17,12 +17,5 @@
   "exclude": [
     "node_modules",
     "**/*.spec.js"
-  ],
-  "filesGlob": [
-    "./src/**/*.ts",
-    "./test/**/*.ts",
-    "./typings/index.d.ts",
-    "./custom_typings/**/*.d.ts",
-    "./node_modules/@types/**/*.d.ts"
   ]
 }
