@@ -2,6 +2,8 @@ import { endpointUrl, Element } from './dist/app.js';
 
 let records = [];
 const endpoint = endpointUrl();
+// the root element of the document. For SVG, it's  the 'svg' element. All other elements are children of the root element.
+const root = 'svg';
 
 new Vue({
     el: '#app',
@@ -11,7 +13,6 @@ new Vue({
             response: '',
             success: '',
             svg: '',
-            code: '',
             el: '',
             rows: records
         };
@@ -27,27 +28,34 @@ new Vue({
     methods: {
         submitForm() {
             this.el = this.name;
-            axios.get(endpoint + this.name, {
-            }).
+            axios.all([getElement('svg'), getElement(this.el)]).
                 then(response => {
                     this.success = 'JSON Data returned';
-                    
-                    var svgEl = new Element(this.el, response.data);
-                    this.svg = svgEl.el;
-                    this.code = svgEl.el;
-                    this.response = JSON.stringify(response.data, null, 2);
-                    for (const [key, value] of Object.entries(response.data)) {
+
+                    this.el === root ? this.svg = new Element(this.el, response[1].data, "",true).el : 
+                       this.svg = new Element(root, response[0].data, new Element(this.el, response[1].data).el).el;
+
+                    this.response = JSON.stringify(response[1].data, null, 2);
+                    for (const [key, value] of Object.entries(response[1].data)) {
                         records.push({ Attribute: `${key}`, Value: `${value}` });
                     }
                 }).catch(error => {
                     this.response = 'Error: ' + error.response.status;
                 });
-            this.name = ''; 
+            this.name = '';
         }
     }
 });
 
-// Reset
+// Support functions
+
+// Reset page
 function ResetForm() {
     document.getElementById("PrimaryForm").reset();
+}
+
+// API Get 
+function getElement(el) {
+    const url = endpoint + el;
+    return axios.get(url);
 }
