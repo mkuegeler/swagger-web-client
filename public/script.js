@@ -28,7 +28,7 @@ new Vue({
     methods: {
         submitForm() {
             this.el = this.name;
-            axios.all([getElement('svg'), getElement(this.el)]).
+            axios.all([getElement(root), getElement(this.el)]).
                 then(response => {
                     this.success = 'JSON Data returned';
 
