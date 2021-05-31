@@ -35,8 +35,8 @@ http://localhost:3000
 ```
 
 ## Running build and run with a single command
-To run the build and run process at once, you can run this command:
+To run the build and run process at once, you can run this command: (Webpack is not configured yet)
 
 ```
-npm run all
+npm run nopack
 ```
